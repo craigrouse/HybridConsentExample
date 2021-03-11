@@ -66,6 +66,11 @@ extension WebViewController: WKScriptMessageHandler {
               return
       }
 
+        guard categories != "" else {
+            TealiumHelper.setConsentStatus(status: "Not Consented")
+            return
+        }
+        
         let categoriesArray = categories.components(separatedBy: ",")
         
         guard categoriesArray.count > 0 else {

@@ -84,10 +84,12 @@ class TealiumHelper {
         default:
             break
         }
+        NotificationCenter.default.post(Notification(name: Notification.Name("com.tealium.consentchanged")))
     }
     
     class func getConsentStatus() -> (String, Int) {
-        guard let _ = TealiumHelper.tealium?.consentManager?.userConsentStatus,
+        guard let status = TealiumHelper.tealium?.consentManager?.userConsentStatus,
+              status == .consented,
               let categories = TealiumHelper.tealium?.consentManager?.userConsentCategories else {
             return ("Not Consented", 0)
         }
@@ -108,7 +110,12 @@ class TealiumHelper {
     class func setConsentCategories(_ categories: [String]) {
         print("Webview: Setting consent categories to: \(categories)")
         NotificationCenter.default.post(Notification(name: Notification.Name("com.tealium.consentchanged")))
-        TealiumHelper.tealium?.consentManager?.userConsentCategories = consentCategoriesStringToEnum(categories)
+        if categories.count == 0 {
+            TealiumHelper.tealium?.consentManager?.userConsentStatus = .notConsented
+        } else {
+            TealiumHelper.tealium?.consentManager?.userConsentCategories = consentCategoriesStringToEnum(categories)
+        }
+        
     }
 
 }
