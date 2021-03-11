@@ -56,9 +56,6 @@ if (consent_categories_qp.length > 0) {
 
 ```
 window.syncConsent = function(categories) {
-    if (!categories) {
-        return;
-    }
     // Android Only:
   if (window.WebViewInterface) {
     window.WebViewInterface.trackView(tealiumEvent, JSON.stringify(data));
