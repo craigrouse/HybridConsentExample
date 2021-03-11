@@ -45,7 +45,9 @@ class TealiumHelper {
         // set consent policy to GDPR
         config.consentPolicy = .gdpr
         // Set consent to expire after a period of time
-        config.consentExpiry = (1, .minutes)
+        config.consentExpiry = (1, .days)
+//        config.consentExpiry = (1, .minutes)
+//        config.consentExpiry = (1, .hours)
         config.collectors = [Collectors.AppData,
                              Collectors.Connectivity,
                              Collectors.Device]
